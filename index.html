@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://assets.kiwify.com.br/cdn-cgi/image/fit=scale-down,width=1000/fRt4sw0qezOyfuU/Ideias-20230427_110514_5f6025afd15b42deabd305a3f9352375.jpg">
+  <title>Chá da Casa</title>
+
+  <style> 
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 05)), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeNkHGqKvL1Dt6yvvMMWPeENaiz6Og8QDnWw&usqp=CAU');
+    background-size: cover;
+    background-position: center;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.51); /* Adapte o valor alpha para a transparência desejada */
+    text-align: center;
+    padding: 14px 0 5px;
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    z-index: 5;
+    backdrop-filter: blur(10px); /* Ajuste o valor conforme necessário */
+}
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ff0084;
+    }
+
+    .container {
+        max-width: 400px;
+        width: 100%;
+        background-color: #333; /* Tonalidade mais clara de preto */
+        padding: 20px;
+        border-radius: 8%;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: white; 
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        border-radius: 10px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10%;
+    } 
+
+.center-button {
+    display: block;
+    margin: 0 auto; 
+    width: 100px;
+    border-radius: 10px;
+}
+select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px; 
+    text-align: center;
+    display: block;
+    margin: 0 auto; 
+    width: 100px;
+}
+
+footer {
+background-color: rgba(0, 0, 0, 0.51);  backdrop-filter: blur(10px);
+    color: white;
+    text-align: center;
+    padding: 10px; 
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    z-index: 6;
+}
+
+  footer p {
+    margin: 8px 0; 
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  a {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.51);  backdrop-filter: blur(10px);
+    border-radius: 50%;
+    padding: 5px;
+    text-decoration: none;
+  } 
+</style>
+
+</head>
+<body>
+<header>
+  <div class="logo">Chá de casa nova</div>
+    <h3>Itens para a casa nova</h3>
+</header>
+    <div>
+<form id="myForm">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="phone">Telefone:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" placeholder="Opcional">
+
+<label for="options">Item:</label>
+<select id="options" name="options">
+    <option value="utensilios-cozinha">Utensílios de Cozinha</option>
+    <option value="decoracao-casa">Decoração para Casa</option>
+    <option value="roupas-cama">Roupas de Cama</option>
+    <option value="eletronicos">Eletrônicos</option>
+    <option value="moveis">Móveis</option>
+     <option value="Nenhuma">Nenhuma Das Anteriores</option>
+</select>
+
+        <label for="other">Outros:</label>
+        <input type="text" id="other" name="other" placeholder="Opcional">
+
+        <button type="button" class="center-button" onclick="submitForm()">Enviar</button>
+    </form>
+</div>
+    </div>
+    
+<script>
+    function submitForm() {
+        const form = document.getElementById('myForm');
+        const formData = new FormData(form);
+
+        // Adicionar a opção selecionada ao FormData
+        const selectedOption = document.getElementById('options').value;
+
+        // Verificar se o e-mail é preenchido ou não antes de enviar
+        const emailInput = document.getElementById('email');
+        if (!emailInput.value.trim()) {
+            formData.delete('email'); // Remover e-mail do FormData se estiver vazio
+        }
+
+        fetch('https://api.sheetmonkey.io/form/biEZ377koHFYoreJHLv5mm', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao enviar dados para a API');
+            }
+            alert('Dados enviados com sucesso, obrigado por participar! ❤️🫶');
+        })
+        .catch(error => {
+            console.error('Erro:', error.message);
+            alert('Erro ao enviar dados. Por favor, tente novamente.');
+        });
+    }
+</script>
+ 
+<footer>
+  <p>Copyright © 2024</p>
+  <p>Desenvolvido por Lucas Nathan</p>
+  <ul>
+    <li><a href="https://wa.me/557192920032" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+    <li><a href="https://www.instagram.com/071lkz/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+    <li><a href="https://www.facebook.com/lucas.coelho.7564129" target="_blank"><i class="fab fa-facebook"></i></a></li>
+    <li><a href="https://www.linkedin.com/in/lucas-nathan-760944229/" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+  </ul>
+</footer> 
+</body> 
+</html>
